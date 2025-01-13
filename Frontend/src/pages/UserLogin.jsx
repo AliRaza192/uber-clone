@@ -23,7 +23,11 @@ const UserLogin = () => {
     <div className="p-7 flex flex-col justify-between h-screen">
       <div>
         <img className="w-16 mb-10" src={logo} alt="logo" />
-        <form onSubmit={submitHandler}>
+        <form
+          onSubmit={(e) => {
+            submitHandler(e);
+          }}
+        >
           <h3 className="text-lg font-medium mb-2">What is your email</h3>
           <input
             type="emai"
