@@ -1,31 +1,59 @@
+import axios from "axios";
 import logo from "../assets/logo.png";
-
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { CaptainDataContext } from "../context/CaptainContext";
 
 const CaptainSignUp = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [captainData, setCaptainData] = useState({});
+  const [vehicleColor, setVehicleColor] = useState("");
+  const [vehiclePlate, setVehiclePlate] = useState("");
+  const [vehicleCapacity, setVehicleCapacity] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
 
-  const submitHandler = (e) => {
+  const { captain, setCaptain } = React.useContext(CaptainDataContext);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setCaptainData({
+    const captainData = {
       fullName: {
         firstName: firstName,
         lastName: lastName,
       },
       email: email,
       password: password,
-    });
-    // console.log(captainData);
+      vehicle: {
+        color: vehicleColor,
+        plate: vehiclePlate,
+        capacity: vehicleCapacity,
+        vehicleType: vehicleType,
+      },
+    };
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/captains/register`,
+      captainData
+    );
+
+    if (response.status === 201) {
+      const data = response.data;
+      setCaptain(data.captain);
+      localStorage.setItem("token", data.token);
+      navigate("/captain-home");
+    }
 
     setEmail("");
     setPassword("");
     setFirstName("");
     setLastName("");
+    setVehicleColor("");
+    setVehiclePlate("");
+    setVehicleCapacity("");
+    setVehicleType("");
   };
 
   return (
@@ -37,7 +65,9 @@ const CaptainSignUp = () => {
             submitHandler(e);
           }}
         >
-          <h4 className="text-lg w-full font-medium mb-2">What is our Captain name</h4>
+          <h4 className="text-lg w-full font-medium mb-2">
+            What is our Captain name
+          </h4>
           <div className="flex gap-4 ">
             <input
               type="text"
@@ -61,7 +91,9 @@ const CaptainSignUp = () => {
             />
           </div>
 
-          <h4 className="text-lg font-medium mb-2">What is our Captain email</h4>
+          <h4 className="text-lg font-medium mb-2">
+            What is our Captain email
+          </h4>
           <input
             type="emai"
             required
@@ -70,7 +102,7 @@ const CaptainSignUp = () => {
               setEmail(e.target.value);
             }}
             placeholder="email@example.com"
-            className="bg-[#eeeeee] py-2 px-4 border rounded mb-7 w-full text-lg placeholder:text-base"
+            className="bg-[#eeeeee] py-2 px-4 border rounded mb-3 w-full text-lg placeholder:text-base"
           />
 
           <h4 className="text-lg font-medium mb-2">Enter Password</h4>
@@ -82,10 +114,61 @@ const CaptainSignUp = () => {
               setPassword(e.target.value);
             }}
             placeholder="password"
-            className="bg-[#eeeeee] py-2 px-4 border rounded mb-7 w-full text-lg placeholder:text-base"
+            className="bg-[#eeeeee] py-2 px-4 border rounded mb-3 w-full text-lg placeholder:text-base"
           />
-          <button className="bg-[#111] text-white w-full font-semibold px-2 py-2 rounded mb-7">
-            Register Now
+
+          <h3 className="text-lg font-medium mb-2">Vehicle Information</h3>
+          <div className="flex gap-4 mb-3">
+            <input
+              required
+              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              type="text"
+              placeholder="Vehicle Color"
+              value={vehicleColor}
+              onChange={(e) => {
+                setVehicleColor(e.target.value);
+              }}
+            />
+            <input
+              required
+              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              type="text"
+              placeholder="Vehicle Plate"
+              value={vehiclePlate}
+              onChange={(e) => {
+                setVehiclePlate(e.target.value);
+              }}
+            />
+          </div>
+          <div className="flex gap-4 mb-3">
+            <input
+              required
+              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              type="number"
+              placeholder="Vehicle Capacity"
+              value={vehicleCapacity}
+              onChange={(e) => {
+                setVehicleCapacity(e.target.value);
+              }}
+            />
+            <select
+              required
+              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              value={vehicleType}
+              onChange={(e) => {
+                setVehicleType(e.target.value);
+              }}
+            >
+              <option value="" disabled>
+                Vehicle
+              </option>
+              <option value="car">Car</option>
+              <option value="auto">Auto</option>
+              <option value="moto">Moto</option>
+            </select>
+          </div>
+          <button className="bg-[#111] text-white w-full font-semibold px-2 py-2 rounded mb-3">
+            Create Captain Account
           </button>
         </form>
         <p className="text-center">
@@ -95,13 +178,13 @@ const CaptainSignUp = () => {
           </Link>
         </p>
       </div>
-      <div>
+      {/* <div>
         <p className="text-[10px] leading-tight">
           This site is proceted by reCAPTCHA and the{" "}
           <span className="underline">Google Privacy Policy</span> and{" "}
           <span className="underline">Terms of Service apply.</span>{" "}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
