@@ -16,8 +16,8 @@ const ConfirmRidePanel = (props) => {
         <img className="h-20" src={Car} alt="Car" />
         <div className="w-full mt-5">
           <div className="flex items-center gap-5 p-4 border-b-2">
-          < i className="ri-map-pin-user-line"></i>
-          <div>
+            <i className="ri-map-pin-user-line"></i>
+            <div>
               <h3 className="text-lg font-medium">573/001-Z</h3>
               <p className="text-sm  text-gray-600">
                 Baldia Town, Karachi, Sindh
@@ -25,8 +25,8 @@ const ConfirmRidePanel = (props) => {
             </div>
           </div>
           <div className="flex items-center gap-5 p-4 border-b-2">
-          < i className="ri-map-pin-line"></i>
-          <div>
+            <i className="ri-map-pin-line"></i>
+            <div>
               <h3 className="text-lg font-medium">573/001-Z</h3>
               <p className="text-sm  text-gray-600">
                 Baldia Town, Karachi, Sindh
@@ -34,8 +34,8 @@ const ConfirmRidePanel = (props) => {
             </div>
           </div>
           <div className="flex items-center gap-5 p-4 ">
-          < i className="ri-money-dollar-circle-line"></i>
-          <div>
+            <i className="ri-money-dollar-circle-line"></i>
+            <div>
               <h3 className="text-lg font-medium">573/001-Z</h3>
               <p className="text-sm  text-gray-600">
                 Baldia Town, Karachi, Sindh
@@ -44,7 +44,14 @@ const ConfirmRidePanel = (props) => {
           </div>
         </div>
 
-        <button className="w-full mt-5 bg-green-500 rounded-lg text-white font-semibold p-2">
+        <button
+          onClick={() => {
+            props.setVehicleFound(true);
+            props.setConfirmRidePanel(false);
+
+          }}
+          className="w-full mt-5 bg-green-500 rounded-lg text-white font-semibold p-2"
+        >
           Confirm
         </button>
       </div>
