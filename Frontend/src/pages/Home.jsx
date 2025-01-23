@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import logo from "../assets/logo.png";
-import map1 from "../assets/map1.jpg";
+import Map from "../assets/map-pic.gif";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
@@ -115,7 +115,7 @@ const Home = () => {
       <img className="w-16 absolute left-5 top-5" src={logo} alt="logo" />
       <div className="h-screen w-screen">
         {/* uber map images */}
-        <img className="h-full w-full object-cover" src={map1} alt="" />
+        <img className="h-full w-full object-cover" src={Map} alt="" />
       </div>
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full">
         <div className="bg-white p-6 h-[30%] relative">
