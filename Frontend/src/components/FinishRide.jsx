@@ -1,19 +1,34 @@
-import Car from "../assets/car.webp";
+import Driver from "../assets/driver.webp";
+import { Link } from "react-router-dom";
 
-const ConfirmRidePanel = (props) => {
+const FinishRide = (props) => {
   return (
     <div>
       <h5
         className="p-1 text-center w-[93%] absolute top-0"
         onClick={() => {
-          props.setConfirmRidePanel(false);
+          props.setFinishRidePanel(false);
         }}
       >
         <i className="text-3xl text-gray-400 ri-arrow-down-wide-line"></i>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5">Confirm your Ride</h3>
+      <h3 className="text-2xl font-semibold mb-5">
+        Confirm to ride and Start!
+      </h3>
+
+      <div className="flex items-center justify-between p-3 bg-yellow-400 rounded-lg mt-4">
+        <div className="flex items-center gap-3">
+          <img
+            className="h-12 w-12 object-cover rounded-full bg-white"
+            src={Driver}
+            alt="Driver"
+          />
+          <h2 className="text-lg font-medium"> M Suleman </h2>
+        </div>
+        <h5 className="text-lg font-semibold">2.6 KM</h5>
+      </div>
+
       <div className="flex gap-2  flex-col items-center justify-between ">
-        <img className="h-20" src={Car} alt="Car" />
         <div className="w-full mt-5">
           <div className="flex items-center gap-5 p-4 border-b-2">
             <i className="ri-map-pin-user-line"></i>
@@ -44,18 +59,17 @@ const ConfirmRidePanel = (props) => {
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            props.setVehicleFound(true);
-            props.setConfirmRidePanel(false);
-          }}
-          className="w-full mt-5 bg-green-500 rounded-lg text-white font-semibold p-2"
-        >
-          Confirm
-        </button>
+        <div className="mt-4 w-full">
+          <Link
+            to="/captain-home"
+            className="w-full mt-5 text-lg flex justify-center bg-green-600 rounded-lg text-white font-semibold p-3"
+          >
+            Finish Ride
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ConfirmRidePanel;
+export default FinishRide;
